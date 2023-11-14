@@ -1,24 +1,22 @@
 package main
 
 import (
-	"fmt"
-
+	"github.com/mateusVedoy/go-my-songs.git/src/application/controller"
 	"github.com/mateusVedoy/go-my-songs.git/src/application/converter"
-	"github.com/mateusVedoy/go-my-songs.git/src/application/dto"
+	"github.com/mateusVedoy/go-my-songs.git/src/application/router"
+	usecase "github.com/mateusVedoy/go-my-songs.git/src/application/useCase"
 )
 
 func main() {
-	dto := dto.NewMusicDTO("One", "...And justice for all", "Metallica", "06:24")
+	route := inject()
+	route.Start()
+}
 
-	music, businessErr := converter.Convert(*dto)
+func inject() *router.Route {
+	converter := converter.NewConverterImpl()
+	manager := usecase.NewManager(converter)
+	controller := controller.NewController(manager)
+	route := router.NewRoute(controller)
 
-	if businessErr != nil {
-		errors := businessErr.GetErrors()
-		fmt.Println("error")
-		fmt.Println(errors)
-	} else {
-		fmt.Println("success")
-		fmt.Println(*music)
-		fmt.Println(music.GetName())
-	}
+	return route
 }
