@@ -1,11 +1,13 @@
 package api
 
-import "github.com/mateusVedoy/go-my-songs.git/src/domain"
+import (
+	"github.com/mateusVedoy/go-my-songs.git/src/application/dto"
+)
 
 type ResponseSuccess struct {
 	Status  int            `json:"status"`
 	Message string         `json:"message"`
-	Content []domain.Music `json:"content"`
+	Content []dto.MusicDTO `json:"content"`
 }
 
 type ResponseError struct {
@@ -19,7 +21,7 @@ func SetErrorResponse(status int, message string, content []error) *ResponseErro
 	return &err
 }
 
-func SetSuccessResponse(status int, message string, content []domain.Music) *ResponseSuccess {
+func SetSuccessResponse(status int, message string, content []dto.MusicDTO) *ResponseSuccess {
 	success := ResponseSuccess{Status: status, Message: message, Content: content}
 	return &success
 }
