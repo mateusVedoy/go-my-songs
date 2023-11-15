@@ -21,13 +21,28 @@ func (c Controller) Add(writer http.ResponseWriter, request *http.Request) {
 	}
 	successResp, errorResp := c.manager.AddMusic(*dto)
 
+	writer.Header().Set("Content-Type", "application/json")
+
 	if errorResp != nil {
-		writer.WriteHeader(errorResp.Status)
-		writer.Write([]byte(errorResp.Message))
+		resp, _ := json.Marshal(errorResp)
+		writer.Write([]byte(resp))
+	} else {
+		resp, _ := json.Marshal(successResp)
+		writer.Write([]byte(resp))
+	}
+}
+
+func (c Controller) ListAll(writer http.ResponseWriter, request *http.Request) {
+	writer.Header().Set("Content-Type", "application/json")
+	successResp, errorResp := c.manager.ListAll()
+	if errorResp != nil {
+		resp, _ := json.Marshal(errorResp)
+		writer.Write([]byte(resp))
+	} else {
+		resp, _ := json.Marshal(successResp)
+		writer.Write([]byte(resp))
 	}
 
-	writer.WriteHeader(successResp.Status)
-	writer.Write([]byte(successResp.Message))
 }
 
 func NewController(manager *usecase.Manager) *Controller {

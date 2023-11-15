@@ -18,7 +18,7 @@ func (c Converter) ToDomain(dto dto.MusicDTO) (*domain.Music, *domain.BusinessEr
 }
 
 func (c Converter) ToDTO(entity domain.Music) *dto.MusicDTO {
-	return nil
+	return &dto.MusicDTO{Name: entity.GetName(), Album: entity.GetAlbum(), Artist: entity.GetArtist(), Duration: entity.GetDuration()}
 }
 
 func NewConverterImpl() *Converter {

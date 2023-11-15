@@ -13,6 +13,7 @@ type Route struct {
 
 func (r Route) Start() {
 	http.HandleFunc("/music/add", r.controller.Add)
+	http.HandleFunc("/music/find/all", r.controller.ListAll)
 	port := 8080
 	fmt.Printf("Server is running on :%d...\n", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
