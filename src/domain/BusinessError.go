@@ -1,7 +1,7 @@
 package domain
 
 type BusinessError struct {
-	errors []error
+	Errors []error
 }
 
 func NewBusinessError() *BusinessError {
@@ -9,9 +9,9 @@ func NewBusinessError() *BusinessError {
 }
 
 func (businessErr *BusinessError) AddError(err error) {
-	businessErr.errors = append(businessErr.errors, err)
+	businessErr.Errors = append(businessErr.Errors, err)
 }
 
 func (businessErr *BusinessError) GetErrors() []error {
-	return businessErr.errors
+	return businessErr.Errors
 }

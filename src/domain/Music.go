@@ -56,7 +56,7 @@ func NewMusic(name, album, artist, duration string) (*Music, *BusinessError) {
 	music := &Music{name: name, album: album, artist: artist, duration: duration}
 	err := music.isValid()
 
-	if err.errors != nil {
+	if err.Errors != nil {
 		return nil, err
 	}
 
